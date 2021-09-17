@@ -1,0 +1,55 @@
+body {
+    font-family: "Helvetica",
+    sans-serif;
+    margin: 0;
+}
+
+p {
+    color: seagreen;
+
+}
+
+nav {
+    background: #234465;;
+}
+
+nav ul {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+  }
+
+  nav ul li {
+    display: inline-block;
+  }
+
+  aside ul li {
+    display: inline-block;
+  }
+
+  h1 {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: xx-large;
+      font-weight: bold;
+      color: red;
+  }
+
+  h2 {
+      font-size: medium;
+      color: slateblue;
+  }
+
+  p {
+      color: tan;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    border-radius: 15px;
+  }
+  footer {
+      contain: paint;
+  }
