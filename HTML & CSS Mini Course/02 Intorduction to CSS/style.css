@@ -1,0 +1,89 @@
+/* article p {
+    background: yellow;
+} */
+
+/* p#first {
+    background: rgb(88, 88, 173);
+    font-weight: bolder;
+}
+
+#red-article {
+    background-color: red;
+} */
+
+body {
+    background: rgb(105, 202, 105);
+}
+
+/* h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+} */
+
+.text-center {
+    text-align: center;
+}
+
+div.items a{
+    color: green;
+    font-weight: bold;
+    /* background-color: rebeccapurple;
+    border: royalblue;
+    border-radius: 5px;
+    line-break: normal; */
+}
+p {
+    text-align: justify;
+}
+p+p {
+    font-style: italic;
+    font-weight: bold;
+}
+span.sky {
+    background: dodgerblue;
+}
+.code {
+    font-family: Consolas;
+}
+
+.apple {
+    color: red;
+    text-align: center;
+}
+.orange {
+    color: orange;
+    text-align: center;
+}
+.small {
+font-size: 16px;
+}
+.apple.orange {
+    font-style: italic;
+    text-align: center;
+}
+
+/* ATTRIBUTE SELECTORS */
+a[title = "menu"] {
+    text-decoration: none;
+    color: #962103;
+    font-size: 22px;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+input[type="submit"] {
+    /* box-shadow: violet;
+    background-color: yellow;
+    color: red;
+    font-weight: bold */
+    color: whitesmoke;
+    background: darkgray;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 3px 3px 3px 3px;
+    margin-left: 7px;
+    border-radius: 10px;
+    border: 5px solid;
+    border-color: navy;
+  
+}
