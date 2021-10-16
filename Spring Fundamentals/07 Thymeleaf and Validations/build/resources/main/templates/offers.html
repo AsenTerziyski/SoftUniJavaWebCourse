@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head::head"></head>
+
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar">Navbar</div>
+
+
+    <div class="container-fluid">
+        <h2 class="text-center text-white mt-5">All Offers</h2>
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div th:each="o : ${offers}" th:object="${o}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+                <div class="card-img-top-wrapper">
+                    <img class="card-img-top" th:src="*{getImageUrl()}" alt="Car image">
+                </div>
+                <div class="card-body pb-1">
+                    <h5 class="card-title" th:text="*{year} + ' '  + *{brand} + ' '  + *{model}">
+					Offer year Brand name Model name</h5>
+                </div>
+
+                <ul class="offer-details list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="card-text"><span th:text="|Mileage: *{mileage}km|">Mileage</span></div>
+                        <div class="card-text"><span th:text="|Price: *{price}bgn|">Price</span></div>
+                        <div class="card-text"><span th:text="|Engine: *{engine}|">Engine type</span></div>
+                        <div class="card-text"><span th:text="|Transmission: *{transmission}|">Transmission type</span></div>
+                    </li>
+                </ul>
+
+                <div class="card-body">
+                    <a class="card-link" th:href="@{/offers/{id}/details(id=*{id})}">Details</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+		<footer> </footer>
+	</div>
+
+</body>
+</html>
