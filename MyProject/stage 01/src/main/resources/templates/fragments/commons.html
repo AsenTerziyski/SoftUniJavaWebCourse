@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Coffee Shop Application</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <title>Font Awesome Icons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<header th:fragment="nav">
+    <nav class="navbar navbar-expand navbar-dark fixedNav bg-dark rounded text-warning">
+        <div class="col-sm-12 navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto text-warning">
+
+                <img class="logo align-content-center mr-lg-3 mt-1" width="30px" height="30px" src="/images/logoHotel2.png" alt="">
+
+                <li class="nav-item active">
+                    <a class="nav-link text-warning" href="/">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="/">Book</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="/">Reviews</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-warning" href="/">Offers</a>
+                </li>
+
+                <li class="nav-item mr-sm-0">
+                    <a class="nav-link text-warning" href="/contacts">Contacts</a>
+                </li>
+
+                <li class="nav-item mr-sm-0">
+                    <a class="nav-link text-warning" href="/">Login</a>
+                </li>
+
+                <li class="nav-item mr-sm-0">
+                    <a class="nav-link text-warning" href="/">Logout</a>
+                </li>
+
+                <li class="nav-item mr-sm-0">
+                    <a class="nav-link text-warning" href="/">Add Offer</a>
+                </li>
+
+                <li class="nav-item mr-sm-0">
+                    <a class="nav-link text-warning" href="/">Add Menu</a>
+                </li>
+
+            </ul>
+            <li class="loginLogo text-dark ">
+                <a href="/users/login"><img class="ml-sm-2 align-content-center" width="30px" height="30px" src="/images/staffLoginLogo.png" alt="staffLoginLogo.png"></a>
+            </li>
+
+        </div>
+    </nav>
+</header>
+<footer th:fragment="footer" class="container bg-dark navbar-expand text-warning mt-5">
+    <p>&copy;SoftUni Spring Team 2021. Course project by Asen Terziyski.</p>
+</footer>
+</body>
+</html>
