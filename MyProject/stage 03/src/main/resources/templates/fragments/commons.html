@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MyProjectAndoriaHotel</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <title>Font Awesome Icons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<header th:fragment="nav">
+    <nav class="navbar navbar-expand navbar-dark fixedNav bg-dark rounded text-warning">
+        <div class="col-sm-12 navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto text-warning">
+
+                <img class="logo align-content-center mr-lg-3 mt-1" width="30px" height="30px"
+                     src="/images/logoHotel2.png" alt="">
+
+                <li class="nav-item active">
+                    <a class="nav-link text-warning" href="/">Home</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/book}">Book</a>
+                </li>
+
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/reviews}">Reviews</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/offers}">Offers</a>
+                </li>
+
+                <li class="nav-item mr-sm-0" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/contacts}">Contacts</a>
+                </li>
+
+                <li class="nav-item mr-sm-0" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/about}">About Us</a>
+                </li>
+
+
+                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-warning" th:href="@{/add-user}">ADD USER</a>
+                </li>
+
+<!--                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link text-warning" th:href="@{/edit-user}">EDIT USER</a>-->
+<!--                </li>-->
+
+                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-warning" th:href="@{/delete-user}">DELETE USER</a>
+                </li>
+
+                <li class="nav-item mr-sm-0" sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/add-offer}">ADD OFFER</a>
+                </li>
+
+<!--                <li class="nav-item mr-sm-0" sec:authorize="isAuthenticated()">-->
+<!--                    <a class="nav-link text-warning" th:href="@{/add-menu}">Add Menu</a>-->
+<!--                </li>-->
+
+            </ul>
+
+            <form sec:authorize="isAuthenticated()" th:action="@{/users/logout}" th:method="post">
+                <input class="nav-link text-warning bg-dark" type="submit" value="Logout">
+            </form>
+
+            <li class="loginLogo text-dark " sec:authorize="!isAuthenticated()">
+                <a th:href="@{/users/login}"><img class="ml-sm-2 align-content-center" width="30px" height="30px" src="/images/staffLoginLogo.png" alt="staffLoginLogo.png"></a>
+            </li>
+
+        </div>
+    </nav>
+</header>
+
+<section th:fragment="welcome" class="site-header text-warning">
+    <h1 sec:authorize="!isAuthenticated()">Welcome to our hotel family hotel ANDORIA</h1>
+    <h1 sec:authorize="isAuthenticated()">Welcome, <th:block sec:authentication="name"></th:block>!</h1>
+</section>
+
+<footer th:fragment="footer" class="container bg-dark navbar-expand text-warning mt-5">
+    <p>&copy;SoftUni Spring Team 2021. Course project by Asen Terziyski.</p>
+</footer>
+
+</body>
+
+</html>
