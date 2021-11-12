@@ -49,7 +49,7 @@ public class BookingServiceImpl implements BookingService {
         BookingEntity notExpiredBooking = new BookingEntity();
         LocalDate checkInNotExpired = LocalDate.of(2022, 2, 1);
         LocalDate checkOutNotExpired = LocalDate.of(2022, 2, 11);
-        createSampleBookings(expiredBooking, checkInNotExpired, checkOutNotExpired);
+        createSampleBookings(notExpiredBooking, checkInNotExpired, checkOutNotExpired);
     }
 
     private void createSampleBookings(BookingEntity booking, LocalDate checkIn, LocalDate checkOut) {
@@ -91,6 +91,7 @@ public class BookingServiceImpl implements BookingService {
 
         LocalDate checkIn = bookingBindingModel.getCheckIn();
         LocalDate checkOut = bookingBindingModel.getCheckOut();
+
         long stay = DAYS.between(checkIn, checkOut);
         BookingEntity newBook = this.modelMapper.map(bookingBindingModel, BookingEntity.class);
         RoomEnum room = bookingBindingModel.getRoom();
@@ -100,7 +101,6 @@ public class BookingServiceImpl implements BookingService {
         double doublePrice = price.doubleValue();
         OffersEntity offerByRoomType = this.offersService.findOfferByRoomType(roomType);
         BigDecimal totalPrice = BigDecimal.valueOf(stay * doublePrice);
-        System.out.println();
         double discount = 0.0;
         if (offerByRoomType != null) {
 
@@ -115,11 +115,9 @@ public class BookingServiceImpl implements BookingService {
         GuestEntity newGuestByEmailIfNotExists = this.guestService.createNewGuestByEmailIfNotExistsAndReturnsHimOrReturnsExistingGuestByEmail(bookingBindingModel.getEmail());
         newBook.setGuest(newGuestByEmailIfNotExists);
         newBook.setStay(stay);
-        System.out.println();
         newBook.setText(bookingBindingModel.getNotes());
         BookingEntity save = this.bookingRepository.save(newBook);
         newGuestByEmailIfNotExists.getBookings().add(save);
-
     }
 
     @Override

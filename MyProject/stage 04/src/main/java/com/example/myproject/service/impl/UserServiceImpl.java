@@ -112,4 +112,9 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+    @Override
+    public void deleteUser(UserEntity userByUsername) {
+        this.userRepository.delete(userByUsername);
+    }
 }

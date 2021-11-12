@@ -12,40 +12,24 @@
 
     <div class="container bg-dark rounded p-5 mt-5 w-75">
         <form
-                th:action="@{/add-offer}"
-                th:object="${offerAddBindingModel}"
+                th:action="@{/prices/edit/post-price}"
+                th:object="${pricesEditBindingModel}"
                 th:method="POST"
                 class=" text-center text-light">
 
-
             <div class="form-group row text-warning">
-                <label for="discount" class="col-sm-2 col-form-label">Discount</label>
+                <label for="price" class="col-sm-2 col-form-label">Price</label>
                 <div class="col-sm-10">
                     <input
-                            th:field="*{discount}"
+                            th:field="*{price}"
                             th:errorclass="is-invalid"
-                            type="text" class="form-control" id="discount"
+                            type="text" class="form-control" id="price"
                             aria-describedby="nameHelpInline" placeholder="Price">
-                    <small id="discountHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                        Discount must be positive.
+                    <small id="priceHelpInline" class="invalid-feedback bg-danger text-light rounded">
+                        Price must be positive.
                     </small>
                 </div>
             </div>
-
-            <div class="form-group row text-warning">
-                <label for="minstay" class="col-sm-2 col-form-label">Min stay</label>
-                <div class="col-sm-10">
-                    <input
-                            th:field="*{stay}"
-                            th:errorclass="is-invalid"
-                            type="text" class="form-control" id="minstay"
-                            aria-describedby="nameHelpInline" placeholder="Price">
-                    <small id="minstayHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                        Stay must be greater than zero.
-                    </small>
-                </div>
-            </div>
-
 
             <div class="form-group row text-warning">
                 <label for="room_type" class="col-sm-2 col-form-label">Room type</label>
@@ -70,24 +54,9 @@
                 </div>
             </div>
 
-            <div class="form-group row text-warning">
-                <label for="description" class="col-sm-2 col-form-label">Notes</label>
-                <div class="col-sm-10">
-                    <textarea th:field="*{description}"
-                              th:errorclass="is-invalid"
-                              class="form-control" id="description"
-                              aria-describedby="descriptionHelpInline" placeholder="Description">
-                    </textarea>
-                    <small id="descriptionHelpInline" class="invalid-feedback bg-danger text-light rounded">
-                        The description must be more than 10 characters.
-                    </small>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-dark text-warning bg-dark w-20 mb-5">Add Offer</button>
+            <button type="submit" class="btn btn-dark text-warning bg-dark w-20 mb-5">Edit room price</button>
 
         </form>
-
 
     </div>
 

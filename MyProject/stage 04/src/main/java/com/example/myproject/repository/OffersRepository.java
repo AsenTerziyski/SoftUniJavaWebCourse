@@ -12,4 +12,5 @@ public interface OffersRepository extends JpaRepository<OffersEntity, Long> {
 //    List<OffersEntity> getAll();
     List<OffersEntity> getAllByRoomNotNull();
     OffersEntity findByRoom(RoomEnum room);
+
 }

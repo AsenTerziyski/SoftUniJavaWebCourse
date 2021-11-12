@@ -1,19 +1,23 @@
 package com.example.myproject.web;
 
+import com.example.myproject.model.binding.UserDeleteBindingModel;
 import com.example.myproject.model.binding.UserRegistrationBindingModel;
+import com.example.myproject.model.entities.UserEntity;
 import com.example.myproject.model.service.UserRegistrationServiceModel;
 import com.example.myproject.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
@@ -43,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/user/register")
-    public String getRegisterPage (Model model) {
+    public String getRegisterPage(Model model) {
         if (!model.containsAttribute("occupiedUsername")) {
             model.addAttribute("occupiedUsername", false);
         }
@@ -59,8 +63,8 @@ public class UserController {
     @PostMapping("/user/add-new-user")
     public String registerPost(@Valid UserRegistrationBindingModel userRegistrationBindingModel,
                                BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes ) {
-        System.out.println();
+                               RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors() || !userRegistrationBindingModel.getPassword().equals(userRegistrationBindingModel.getConfirmPassword())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
@@ -83,7 +87,53 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/user/delete-user")
+    private String getDeleteUserPage() {
+        return "user-delete";
+    }
 
+    @ModelAttribute
+    public UserDeleteBindingModel userDeleteBindingModel() {
+        return new UserDeleteBindingModel();
+    }
+
+    @DeleteMapping("/user/delete-user")
+    public String deleteUser(@Valid UserDeleteBindingModel userDeleteBindingModel,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userDeleteBindingModel", userDeleteBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userDeleteBindingModel",
+                    bindingResult);
+            return "user-delete";
+        }
+
+        String username = userDeleteBindingModel.getUsername();
+        UserEntity userByUsername = this.userService.findUserByUsername(username);
+
+        if (username.equalsIgnoreCase("admin")) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        if (userByUsername == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+//        ModelAndView confirmModelAndView = new ModelAndView("userDeletedConfirmation");
+//        confirmModelAndView.addObject("user", username);
+//        this.userService.deleteUser(userByUsername);
+
+        return "userDeletedConfirmation";
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ModelAndView handleDbExceptions(UsernameNotFoundException e) {
+        ModelAndView modelAndView = new ModelAndView("userNotFound");
+        modelAndView.addObject("userName", e.getUsername());
+        modelAndView.setStatus(HttpStatus.NOT_FOUND);
+        return modelAndView;
+    }
 
 
 }

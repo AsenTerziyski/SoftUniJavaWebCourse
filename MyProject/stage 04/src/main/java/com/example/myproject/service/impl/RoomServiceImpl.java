@@ -1,5 +1,6 @@
 package com.example.myproject.service.impl;
 
+import com.example.myproject.model.binding.PricesEditBindingModel;
 import com.example.myproject.model.entities.RoomTypeEntity;
 import com.example.myproject.model.entities.enums.RoomEnum;
 import com.example.myproject.model.view.RoomPricesView;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
-
 
     public RoomServiceImpl(RoomRepository roomRepository, ModelMapper modelMapper) {
         this.roomRepository = roomRepository;
@@ -63,5 +63,15 @@ public class RoomServiceImpl implements RoomService {
                 .map(roomTypeEntity -> this.modelMapper.map(roomTypeEntity, RoomPricesView.class))
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public boolean editPrice(PricesEditBindingModel pricesEditBindingModel) {
+        BigDecimal price = pricesEditBindingModel.getPrice();
+        RoomEnum room = pricesEditBindingModel.getRoom();
+        RoomTypeEntity roomTypeEntity = findRoomBy(room);
+        roomTypeEntity.setPrice(price);
+        this.roomRepository.save(roomTypeEntity);
+        return false;
     }
 }

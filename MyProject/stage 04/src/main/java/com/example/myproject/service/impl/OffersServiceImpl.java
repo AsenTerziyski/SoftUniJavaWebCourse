@@ -46,7 +46,7 @@ public class OffersServiceImpl implements OffersService {
             UserEntity admin = this.userService.findUserByUsername("admin");
             offerDoubleRoom.setUser(admin);
             offerDoubleRoom.setDiscount(10);
-            offerDoubleRoom.setPrice(price);
+//            offerDoubleRoom.setPrice(price);
             offerDoubleRoom.setDescription("Lorem ipsum dolor sit amet, " +
                     "consectetur adipiscing elit, " +
                     "sed do eiusmod tempor incididunt ut labore " +
@@ -58,9 +58,9 @@ public class OffersServiceImpl implements OffersService {
                     "sunt in culpa qui officia deserunt mollit anim id est laborum.");
             offerDoubleRoom.setStay(5);
             this.offersRepository.save(offerDoubleRoom);
-            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
-            roomBy.setPrice(price);
-            this.roomRepository.save(roomBy);
+//            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
+//            roomBy.setPrice(price);
+//            this.roomRepository.save(roomBy);
         }
 
     }
@@ -77,13 +77,15 @@ public class OffersServiceImpl implements OffersService {
             UserEntity userByUsername = this.userService.findUserByUsername(username);
             byRoom.setUser(userByUsername);
             byRoom.setDiscount(offerAddBindingModel.getDiscount());
-            byRoom.setPrice(offerAddBindingModel.getPrice());
+//            RoomTypeEntity roomTypeEntity = this.roomRepository.findByType(room).orElse(null);
+//            BigDecimal price = roomTypeEntity.getPrice();
+//            byRoom.setPrice(price);
             byRoom.setDescription(offerAddBindingModel.getDescription());
             byRoom.setStay(offerAddBindingModel.getStay());
             this.offersRepository.save(byRoom);
-            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
-            roomBy.setPrice(offerAddBindingModel.getPrice());
-            this.roomRepository.save(roomBy);
+//            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
+//            roomBy.setPrice(offerAddBindingModel.getPrice());
+//            this.roomRepository.save(roomBy);
             return true;
         }
 
@@ -94,9 +96,10 @@ public class OffersServiceImpl implements OffersService {
             newOffer.setUser(userByUsername);
             newOffer.setRoom(room);
             this.offersRepository.save(newOffer);
-            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
-            roomBy.setPrice(offerAddBindingModel.getPrice());
-            this.roomRepository.save(roomBy);
+//            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
+//            BigDecimal price = roomBy.getPrice();
+//            roomBy.setPrice(price);
+//            this.roomRepository.save(roomBy);
             return true;
         }
 

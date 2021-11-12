@@ -8,7 +8,7 @@ public class OfferSummaryView {
     //    private RoomEnum room;
     private Long id;
     private String room;
-    private BigDecimal price;
+//    private BigDecimal price;
     private double discount;
     private String description;
     private long stay;
@@ -43,14 +43,14 @@ public class OfferSummaryView {
         return this;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public OfferSummaryView setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
+//    public BigDecimal getPrice() {
+//        return price;
+//    }
+//
+//    public OfferSummaryView setPrice(BigDecimal price) {
+//        this.price = price;
+//        return this;
+//    }
 
     public double getDiscount() {
         return discount;

@@ -63,11 +63,5 @@ public class FacilityController {
         return "parking";
     }
 
-    @GetMapping("/prices")
-    private String getPricesPage(Model model) {
-        List<RoomPricesView> allPrices = this.roomService.getAllPrices();
-        model.addAttribute("allRoomsPrices", allPrices);
-        return "prices-all";
-    }
 
 }

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class OfferAddBindingModel {
 
     private RoomEnum room;
-    private BigDecimal price;
+//    private BigDecimal price;
     private double discount;
     private long stay;
     private String description;
@@ -30,16 +30,16 @@ public class OfferAddBindingModel {
         return this;
     }
 
-    @Positive
-    @NotNull
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public OfferAddBindingModel setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
+//    @Positive
+//    @NotNull
+//    public BigDecimal getPrice() {
+//        return price;
+//    }
+//
+//    public OfferAddBindingModel setPrice(BigDecimal price) {
+//        this.price = price;
+//        return this;
+//    }
 
     @Positive
     @NotNull

@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Table(name = "offers")
 public class OffersEntity extends BaseEntity {
     private RoomEnum room;
-    private BigDecimal price;
+//    private BigDecimal price;
     private double discount;
     private String description;
     private UserEntity user;
@@ -28,14 +28,14 @@ public class OffersEntity extends BaseEntity {
         return this;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public OffersEntity setPrice(BigDecimal price) {
-        this.price = price;
-        return this;
-    }
+//    public BigDecimal getPrice() {
+//        return price;
+//    }
+//
+//    public OffersEntity setPrice(BigDecimal price) {
+//        this.price = price;
+//        return this;
+//    }
 
     public double getDiscount() {
         return discount;

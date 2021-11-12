@@ -10,12 +10,10 @@
 
 <main role="main" class="bg-dark">
 
-
     <section class="site-header text-info">
         <h1>Here you can find our room prices.
             Please visit also our Offers section to get better benefits. </h1>
     </section>
-
 
     <div th:each="p : ${allRoomsPrices}" th:object="${p}" class="container align-content-center bg-dark p-2 mt-5">
         <div class="row align-content-center bg-dark">
@@ -38,9 +36,9 @@
         </section>
     </div>
 
-
     <a class="btn btn-dark btn-block btn-warning bg-dark text-warning align-content-center mt-5" href="/"
        role="button">BACK</a>
+
 </main>
 <footer th:replace="fragments/commons::footer">
 </footer>

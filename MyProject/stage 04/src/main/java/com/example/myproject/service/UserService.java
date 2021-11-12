@@ -14,4 +14,6 @@ public interface UserService {
     void registerNewUser(UserRegistrationServiceModel userRegistrationServiceModel);
 
     boolean checkIfUsernameIsExists(String username);
+
+    void deleteUser(UserEntity userByUsername);
 }
