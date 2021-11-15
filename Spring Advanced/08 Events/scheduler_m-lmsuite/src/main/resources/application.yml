@@ -1,0 +1,2 @@
+schedulers:
+  cron: "*/40 * * * * *"
