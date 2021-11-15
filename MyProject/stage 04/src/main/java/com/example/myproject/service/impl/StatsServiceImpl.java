@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class StatsServiceImpl implements StatsService {
     private int anonymousRequests;
     private int authRequests;
+
     @Override
     public void onRequest() {
 

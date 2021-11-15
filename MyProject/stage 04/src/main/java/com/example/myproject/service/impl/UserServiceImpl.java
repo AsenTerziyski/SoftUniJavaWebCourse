@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -54,6 +56,24 @@ public class UserServiceImpl implements UserService {
                     .setFullName("Test User").setAdmin(false);
             testUser.setRoles(Set.of(userRole));
             this.userRepository.save(testUser);
+
+            UserEntity testUser2 = new UserEntity();
+            testUser2.setUsername("tuser2").setPassword(this.passwordEncoder.encode("12345"))
+                    .setFullName("Test User2").setAdmin(false);
+            testUser2.setRoles(Set.of(userRole));
+            this.userRepository.save(testUser2);
+
+            UserEntity testUser3 = new UserEntity();
+            testUser3.setUsername("tuser3").setPassword(this.passwordEncoder.encode("12345"))
+                    .setFullName("Test User3").setAdmin(false);
+            testUser3.setRoles(Set.of(userRole));
+            this.userRepository.save(testUser3);
+
+            UserEntity testUser4 = new UserEntity();
+            testUser4.setUsername("tuser4").setPassword(this.passwordEncoder.encode("12345"))
+                    .setFullName("Test User4").setAdmin(false);
+            testUser4.setRoles(Set.of(userRole));
+            this.userRepository.save(testUser4);
         }
     }
 
@@ -114,7 +134,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(UserEntity userByUsername) {
-        this.userRepository.delete(userByUsername);
+    public boolean userIsAdmin(UserEntity userEntity) {
+        return userEntity
+                .getRoles()
+                .stream()
+                .map(u->u.getRole()).filter(r->r==UserRoleEnum.ADMIN)
+                .findAny()
+                .isPresent();
+
     }
+
+    @Override
+    public boolean principalIsAdmin(Principal principal) {
+        String name = principal.getName();
+        UserEntity userEntity = this.userRepository.findByUsername(name).orElse(null);
+        assert userEntity != null;
+        return userEntity
+                .getRoles()
+                .stream()
+                .map(UserRoleEntity::getRole).anyMatch(r->r==UserRoleEnum.ADMIN);
+    }
+
+    @Override
+    public boolean delete(String username) {
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+
+        if (userEntity != null) {
+            this.userRepository.delete(userEntity);
+            return true;
+        }
+        return false;
+
+    }
+
+//    @Override
+//    public void deleteUser(UserEntity userByUsername) {
+//        this.userRepository.delete(userByUsername);
+//    }
 }

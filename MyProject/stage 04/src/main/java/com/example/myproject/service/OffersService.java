@@ -18,4 +18,6 @@ public interface OffersService {
     OffersEntity findOfferByRoomType(RoomTypeEntity roomType);
 
     void initOffers();
+
+    boolean isOfferOwner(Principal principal, Long id);
 }

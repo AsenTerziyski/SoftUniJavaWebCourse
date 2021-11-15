@@ -63,12 +63,12 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                         invalidateHttpSession(true).
                 //delete the cookie that references my session
                         deleteCookies("JSESSIONID");
-        //с тази настройка мога да качвам:
-        http
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .anyRequest().authenticated();
+
+//        http
+//                .csrf()
+//                .disable()
+//                .authorizeRequests()
+//                .anyRequest().authenticated();
     }
 
     @Override

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -59,15 +61,22 @@ public class ReviewsController {
     }
 
     @DeleteMapping("/reviews/remove/{id}")
-    public String removeReview(@PathVariable Long id) {
+    public String removeReview(@PathVariable Long id, Principal principal) {
+
+        if (principal == null) {
+            String name = "not registered user";
+            throw new UserNotSupportedOperation(name);
+        }
+
         this.reviewService.deleteReviewById(id);
-        System.out.println();
         return "redirect:/reviews/remove";
     }
 
-//    @PostMapping("/bookings/remove/{id}")
-//    public String removeBooking(@PathVariable Long id) {
-//        this.bookingService.removeBooking(id);
-//        return "redirect:/remove-booking";
-//    }
+    @ExceptionHandler(UserNotSupportedOperation.class)
+    public ModelAndView handlePictureFileExceptions(UserNotSupportedOperation e) {
+        ModelAndView modelAndView = new ModelAndView("userNotSupportedOperation");
+        modelAndView.addObject("userName", e.getUsername());
+        return modelAndView;
+    }
+
 }

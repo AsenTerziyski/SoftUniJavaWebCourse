@@ -21,6 +21,7 @@
     <div th:each="o : ${offers}" th:object="${o}" class="container align-content-center bg-dark p-2 mt-5">
         <div class="row align-content-center bg-dark">
             <li class="list-group-item bg-dark text-warning">
+<!--                <div class="card-text bg-dark text-info"><span th:text="|Offer posted by: *{addedBy}|">Posted by</span></div>-->
                 <div class="card-text bg-dark text-info"><span th:text="|Room type: *{room}|">RoomType</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|If you have a stay more than: *{stay} days,|">Price</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|you get a discount of *{discount}% from the total sum. |">Discount</span></div>

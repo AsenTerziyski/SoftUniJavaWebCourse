@@ -3,12 +3,13 @@ package com.example.myproject.web;
 import com.example.myproject.model.binding.UserDeleteBindingModel;
 import com.example.myproject.model.binding.UserRegistrationBindingModel;
 import com.example.myproject.model.entities.UserEntity;
+import com.example.myproject.model.entities.UserRoleEntity;
+import com.example.myproject.model.entities.enums.UserRoleEnum;
 import com.example.myproject.model.service.UserRegistrationServiceModel;
 import com.example.myproject.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 
 @Controller
@@ -53,7 +55,6 @@ public class UserController {
         }
         return "user-add";
     }
-
 
     @ModelAttribute
     public UserRegistrationBindingModel userRegistrationBindingModel() {
@@ -100,7 +101,7 @@ public class UserController {
     @DeleteMapping("/user/delete-user")
     public String deleteUser(@Valid UserDeleteBindingModel userDeleteBindingModel,
                              BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) {
+                             RedirectAttributes redirectAttributes, Principal principal) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userDeleteBindingModel", userDeleteBindingModel);
@@ -109,22 +110,28 @@ public class UserController {
             return "user-delete";
         }
 
+        if (!this.userService.principalIsAdmin(principal)) {
+            throw new UserNotSupportedOperation(principal.getName());
+        }
+
         String username = userDeleteBindingModel.getUsername();
-        UserEntity userByUsername = this.userService.findUserByUsername(username);
+        UserEntity userForDeleting = this.userService.findUserByUsername(username);
 
-        if (username.equalsIgnoreCase("admin")) {
+
+        if (userForDeleting == null) {
             throw new UsernameNotFoundException(username);
         }
 
-        if (userByUsername == null) {
-            throw new UsernameNotFoundException(username);
+        UserRoleEntity userRoleEntity = userForDeleting.getRoles().stream().filter(r -> r.getRole().name().equalsIgnoreCase("admin")).findAny().orElse(null);
+        if (userRoleEntity != null) {
+            throw new UserNotSupportedOperation(userForDeleting.getUsername());
         }
 
-//        ModelAndView confirmModelAndView = new ModelAndView("userDeletedConfirmation");
-//        confirmModelAndView.addObject("user", username);
-//        this.userService.deleteUser(userByUsername);
-
-        return "userDeletedConfirmation";
+        boolean deleted = this.userService.delete(userDeleteBindingModel.getUsername());
+        if (deleted) {
+            return "userDeletedConfirmation";
+        }
+        return "user-delete";
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -135,5 +142,12 @@ public class UserController {
         return modelAndView;
     }
 
+    @ExceptionHandler(UserNotSupportedOperation.class)
+    public ModelAndView handleDbExceptions(UserNotSupportedOperation e) {
+        ModelAndView modelAndView = new ModelAndView("userNotSupportedOperation");
+        modelAndView.addObject("userName", e.getUsername());
+        modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
+        return modelAndView;
+    }
 
 }

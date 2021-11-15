@@ -3,7 +3,7 @@ package com.example.myproject.web;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Only amin can do this operation!")
+@ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Only admin can do this operation!")
 public class UserNotSupportedOperation extends RuntimeException {
     private final String username;
 

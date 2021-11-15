@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,6 +64,20 @@ public class OffersServiceImpl implements OffersService {
 //            this.roomRepository.save(roomBy);
         }
 
+    }
+
+    @Override
+    public boolean isOfferOwner(Principal principal, Long id) {
+        String name = principal.getName();
+        Optional<OffersEntity> optionalOffersEntity = this.offersRepository.findById(id);
+        UserEntity caller = this.userService.findUserByUsername(name);
+        if (optionalOffersEntity.isEmpty() || caller == null) {
+            return false;
+        } else {
+            UserEntity userWhoPostedOffer = optionalOffersEntity.get().getUser();
+            boolean isAdmin = this.userService.userIsAdmin(caller);
+            return isAdmin || principal.getName().equalsIgnoreCase(userWhoPostedOffer.getUsername());
+        }
     }
 
 
@@ -116,6 +131,8 @@ public class OffersServiceImpl implements OffersService {
                 name = "DOUBLE ROOM";
             }
             map.setRoom(name);
+            String addedBy = offersEntity.getUser().getUsername();
+            map.setAddedBy(addedBy);
             return map;
         }).collect(Collectors.toList());
 //        List<OfferSummaryView> collect = all

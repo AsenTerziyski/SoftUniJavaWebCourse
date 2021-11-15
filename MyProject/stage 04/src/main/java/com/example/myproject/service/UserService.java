@@ -3,6 +3,7 @@ package com.example.myproject.service;
 import com.example.myproject.model.entities.UserEntity;
 import com.example.myproject.model.service.UserRegistrationServiceModel;
 
+import java.security.Principal;
 import java.util.Optional;
 
 public interface UserService {
@@ -15,5 +16,10 @@ public interface UserService {
 
     boolean checkIfUsernameIsExists(String username);
 
-    void deleteUser(UserEntity userByUsername);
+    boolean userIsAdmin(UserEntity userEntity);
+    boolean principalIsAdmin(Principal principal);
+
+    boolean delete(String username);
+
+//    void deleteUser(UserEntity userByUsername);
 }

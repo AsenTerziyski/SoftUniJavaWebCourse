@@ -11,13 +11,14 @@
 <main role="main" class="bg-dark">
 
     <section class="site-header text-danger">
-        <h1>Here you can remove offers</h1>
+        <h1>Here you can remove those offers that you have posted or any of them if you are Admin!</h1>
     </section>
 
     <div th:each="o : ${offers}" th:object="${o}" class="container align-content-center bg-dark p-2 mt-5">
 
         <div class="row align-content-center bg-dark">
             <li class="list-group-item bg-dark text-warning">
+                <div class="card-text bg-dark text-info"><span th:text="|Offer posted by: *{addedBy}|">Posted by</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|OFFER ID : *{id}|">Offer id</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|Room type: *{room}|">RoomType</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|Discount: *{discount}|">RoomType</span></div>

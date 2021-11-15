@@ -1,6 +1,8 @@
 package com.example.myproject.model.view;
 
+import com.example.myproject.model.entities.UserEntity;
 import com.example.myproject.model.entities.enums.RoomEnum;
+import org.springframework.security.core.userdetails.User;
 
 import java.math.BigDecimal;
 
@@ -12,6 +14,7 @@ public class OfferSummaryView {
     private double discount;
     private String description;
     private long stay;
+    private String  addedBy;
 
     public OfferSummaryView() {
     }
@@ -77,5 +80,13 @@ public class OfferSummaryView {
     public OfferSummaryView setStay(long stay) {
         this.stay = stay;
         return this;
+    }
+
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
     }
 }
