@@ -48,15 +48,11 @@ public class OffersServiceImpl implements OffersService {
             offerDoubleRoom.setUser(admin);
             offerDoubleRoom.setDiscount(10);
 //            offerDoubleRoom.setPrice(price);
-            offerDoubleRoom.setDescription("Lorem ipsum dolor sit amet, " +
-                    "consectetur adipiscing elit, " +
-                    "sed do eiusmod tempor incididunt ut labore " +
-                    "et dolore magna aliqua. Ut enim ad minim veniam, " +
-                    "quis nostrud exercitation ullamco laboris nisi ut " +
-                    "aliquip ex ea commodo consequat. Duis aute irure dolor " +
-                    "in reprehenderit in voluptate velit esse cillum dolore eu " +
-                    "fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, " +
-                    "sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            offerDoubleRoom.setDescription("All guests who have more " +
+                    "than three bookings become VIP guests and they " +
+                    "take 30% discount from the total sum. If the discount for VIPs " +
+                    "is smaller than the discount pointed in this offer, " +
+                    "VIPs take the bigger of the two discounts.");
             offerDoubleRoom.setStay(5);
             this.offersRepository.save(offerDoubleRoom);
 //            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);

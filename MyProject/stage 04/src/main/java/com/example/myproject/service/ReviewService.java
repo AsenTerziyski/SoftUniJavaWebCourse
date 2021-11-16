@@ -15,4 +15,6 @@ public interface ReviewService {
     Long updateReview(ReviewSummeryView setId);
 
     void initReviews();
+
+    void deleteAllReviewsByAnonymous();
 }

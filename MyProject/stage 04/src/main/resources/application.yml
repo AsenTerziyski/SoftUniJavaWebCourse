@@ -66,3 +66,8 @@ cloudinary:
   api-key: 988518893397762
   api-secret: ${CLOUDINARY_API_SECRET}
   cloud-name: malmsuite
+
+schedulers:
+  cronReviews: "*/50 * * * * *"
+  cronReviewsTemp: "30 7 18 9 * *"
+  cronAddVipGuest: "*/100 * * * * *"

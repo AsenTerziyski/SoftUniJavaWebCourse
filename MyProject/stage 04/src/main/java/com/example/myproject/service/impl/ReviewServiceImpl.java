@@ -2,11 +2,16 @@ package com.example.myproject.service.impl;
 
 import com.example.myproject.model.entities.GuestEntity;
 import com.example.myproject.model.entities.ReviewEntity;
+import com.example.myproject.model.entities.ReviewTempEntity;
 import com.example.myproject.model.view.ReviewSummeryView;
 import com.example.myproject.repository.ReviewRepository;
 import com.example.myproject.service.GuestService;
 import com.example.myproject.service.ReviewService;
+import com.example.myproject.service.ReviewTempService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,30 +22,66 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final ModelMapper modelMapper;
     private final GuestService guestService;
+    private final ReviewTempService reviewTempService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReviewServiceImpl.class);
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, ModelMapper modelMapper, GuestService guestService) {
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ModelMapper modelMapper, GuestService guestService, ReviewTempService reviewTempService) {
         this.reviewRepository = reviewRepository;
         this.modelMapper = modelMapper;
         this.guestService = guestService;
+        this.reviewTempService = reviewTempService;
+    }
+
+    @Override
+    @Scheduled(cron = "${schedulers.cronReviews}")
+    public void deleteAllReviewsByAnonymous() {
+
+        List<ReviewEntity> allByReviewersWithNoName = this.reviewRepository.findAllByReviewerName("");
+        for (ReviewEntity reviewEntity : allByReviewersWithNoName) {
+            String username = reviewEntity.getGuest().getUsername();
+            Long id = reviewEntity.getId();
+            String reviewText = reviewEntity.getReviewText();
+            ReviewTempEntity reviewTempEntity = new ReviewTempEntity();
+            reviewTempEntity.setReviewText(reviewText).setReviewerName(username).setOriginalId(id);
+            this.reviewTempService.addTempReview(reviewTempEntity);
+            this.reviewRepository.deleteById(id);
+            LOGGER.info("deleted review by {} with id {}", username, id);
+        }
+
     }
 
     @Override
     public void initReviews() {
         if (this.reviewRepository.count() == 0) {
-            String name = "Axles Roses";
+            String name = "Axileeees Roses";
             String email = "axles@gunsNroses.com";
             saveReview(name, email);
 
-            name = "Slashes";
+            name = "Slajilleeees Slashess";
             email = "slashes@gunsNroses.com";
             saveReview(name, email);
 
-            name = "Duffesss";
+            name = "Duffillessss";
             email = "duffesss@gunsNroses.com";
+            saveReview(name, email);
+
+            name = "";
+            email = "emptinesss@g.com";
+            saveReview(name, email);
+
+            name = "";
+            email = "emptinesss2@g.com";
+            saveReview(name, email);
+
+            name = "";
+            email = "emptinesss3@g.com";
             saveReview(name, email);
         }
 
     }
+
+
 
     private void saveReview(String name, String email) {
         ReviewEntity sampleReview = new ReviewEntity();

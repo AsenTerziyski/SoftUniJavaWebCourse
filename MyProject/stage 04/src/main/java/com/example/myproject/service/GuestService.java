@@ -3,6 +3,8 @@ package com.example.myproject.service;
 import com.example.myproject.model.binding.ReviewSendBindingModel;
 import com.example.myproject.model.entities.GuestEntity;
 
+import java.util.List;
+
 public interface GuestService {
 
     boolean receiveEmailAndCreateNewGuestByEmailIfNotExistsOrAddsMessageToExistingGuest(String email, String text);
@@ -11,4 +13,6 @@ public interface GuestService {
     boolean checkIfPersonHasBeenHotelGuest(String email);
 
     void addReview(ReviewSendBindingModel reviewSendBindingModel);
+
+    List<GuestEntity> findAllVipGuestsWithBookingsHigherThan3();
 }

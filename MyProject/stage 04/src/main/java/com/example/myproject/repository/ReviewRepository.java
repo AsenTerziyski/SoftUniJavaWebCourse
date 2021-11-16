@@ -12,4 +12,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
     @Query("select r from ReviewEntity r")
     List<ReviewEntity> findAllReviews();
+
+    List<ReviewEntity> findAllByReviewerName(String reviewerName);
 }

@@ -14,8 +14,9 @@ public class InitData implements CommandLineRunner {
     private final OffersService offersService;
     private final ReviewService reviewService;
     private final PictureService pictureService;
+    private final GuestVipService guestVipService;
 
-    public InitData(UserService userService, UserRoleService userRoleService, RoomService roomService, BookingService bookingService, OffersService offersService, ReviewService reviewService, PictureService pictureService) {
+    public InitData(UserService userService, UserRoleService userRoleService, RoomService roomService, BookingService bookingService, OffersService offersService, ReviewService reviewService, PictureService pictureService, GuestVipService guestVipService) {
         this.userService = userService;
         this.userRoleService = userRoleService;
         this.roomService = roomService;
@@ -23,6 +24,7 @@ public class InitData implements CommandLineRunner {
         this.offersService = offersService;
         this.reviewService = reviewService;
         this.pictureService = pictureService;
+        this.guestVipService = guestVipService;
     }
 
     @Override
@@ -34,5 +36,11 @@ public class InitData implements CommandLineRunner {
         this.bookingService.initBookings();
         this.reviewService.initReviews();
         this.pictureService.initPictures();
+
+        System.out.println();
+
+        this.guestVipService.extractAllVipGuests();
+
+
     }
 }

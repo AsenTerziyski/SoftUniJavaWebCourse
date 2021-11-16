@@ -10,6 +10,7 @@ import com.example.myproject.repository.ReviewRepository;
 import com.example.myproject.service.GuestService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -88,6 +89,12 @@ public class GuestServiceImpl implements GuestService {
         this.reviewRepository.save(newReview);
         guest.getReviews().add(newReview);
         this.guestRepository.save(guest);
+    }
+
+    @Override
+    public List<GuestEntity> findAllVipGuestsWithBookingsHigherThan3() {
+        List<GuestEntity> allGuestsWithBookingsHigherThan3 = this.guestRepository.findAllGuestsWithBookingsHigherThan3();
+        return allGuestsWithBookingsHigherThan3;
     }
 
     private String createUsername(String email, int random) {

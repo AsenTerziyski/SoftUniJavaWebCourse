@@ -17,6 +17,6 @@ public interface GuestRepository extends JpaRepository<GuestEntity, Long> {
     @Query("select g from GuestEntity g where g.messages.size>0")
     List<GuestEntity> findAllGuestWithMessages();
 
-    @Query("select g from GuestEntity g where g.bookings.size>0")
-    List<GuestEntity> findAllGuestsWithBookings();
+    @Query("select g from GuestEntity g where g.bookings.size>3")
+    List<GuestEntity> findAllGuestsWithBookingsHigherThan3();
 }

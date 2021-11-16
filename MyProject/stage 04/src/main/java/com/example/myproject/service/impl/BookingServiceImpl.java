@@ -8,16 +8,12 @@ import com.example.myproject.model.entities.RoomTypeEntity;
 import com.example.myproject.model.entities.enums.RoomEnum;
 import com.example.myproject.model.view.BookingSummaryView;
 import com.example.myproject.repository.BookingRepository;
-import com.example.myproject.service.BookingService;
-import com.example.myproject.service.GuestService;
-import com.example.myproject.service.OffersService;
-import com.example.myproject.service.RoomService;
+import com.example.myproject.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,28 +24,48 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final OffersService offersService;
     private final GuestService guestService;
+    private final GuestVipService guestVipService;
     private final RoomService roomService;
     private final ModelMapper modelMapper;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, OffersService offersService, GuestService guestService, RoomService roomService, ModelMapper modelMapper) {
+    public BookingServiceImpl(BookingRepository bookingRepository, OffersService offersService, GuestService guestService, GuestVipService guestVipService, RoomService roomService, ModelMapper modelMapper) {
         this.bookingRepository = bookingRepository;
         this.offersService = offersService;
         this.guestService = guestService;
+        this.guestVipService = guestVipService;
         this.roomService = roomService;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public void initBookings() {
-        BookingEntity expiredBooking = new BookingEntity();
-        LocalDate checkIn = LocalDate.of(2020, 2, 1);
-        LocalDate checkOut = LocalDate.of(2020, 2, 11);
-        createSampleBookings(expiredBooking, checkIn, checkOut);
+        if (this.bookingRepository.count() == 0) {
+            BookingEntity expiredBooking = new BookingEntity();
+            LocalDate checkIn = LocalDate.of(2020, 2, 1);
+            LocalDate checkOut = LocalDate.of(2020, 2, 11);
+            createSampleBookings(expiredBooking, checkIn, checkOut);
 
-        BookingEntity notExpiredBooking = new BookingEntity();
-        LocalDate checkInNotExpired = LocalDate.of(2022, 2, 1);
-        LocalDate checkOutNotExpired = LocalDate.of(2022, 2, 11);
-        createSampleBookings(notExpiredBooking, checkInNotExpired, checkOutNotExpired);
+            BookingEntity expiredBooking1 = new BookingEntity();
+            LocalDate checkIn1 = LocalDate.of(2020, 3, 1);
+            LocalDate checkOut1 = LocalDate.of(2020, 3, 11);
+            createSampleBookings(expiredBooking1, checkIn1, checkOut1);
+
+            BookingEntity expiredBooking2 = new BookingEntity();
+            LocalDate checkIn2 = LocalDate.of(2020, 4, 1);
+            LocalDate checkOut2 = LocalDate.of(2020, 4, 11);
+            createSampleBookings(expiredBooking2, checkIn2, checkOut2);
+
+            BookingEntity expiredBooking3 = new BookingEntity();
+            LocalDate checkIn3 = LocalDate.of(2020, 5, 1);
+            LocalDate checkOut3 = LocalDate.of(2020, 5, 11);
+            createSampleBookings(expiredBooking3, checkIn3, checkOut3);
+
+            BookingEntity notExpiredBooking = new BookingEntity();
+            LocalDate checkInNotExpired = LocalDate.of(2022, 2, 1);
+            LocalDate checkOutNotExpired = LocalDate.of(2022, 2, 11);
+            createSampleBookings(notExpiredBooking, checkInNotExpired, checkOutNotExpired);
+        }
+
     }
 
     private void createSampleBookings(BookingEntity booking, LocalDate checkIn, LocalDate checkOut) {
@@ -74,7 +90,8 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         booking.setTotalPrice(totalPrice);
-        GuestEntity newGuestByEmailIfNotExists = this.guestService.createNewGuestByEmailIfNotExistsAndReturnsHimOrReturnsExistingGuestByEmail("test@test.bg");
+        GuestEntity newGuestByEmailIfNotExists = this.guestService
+                .createNewGuestByEmailIfNotExistsAndReturnsHimOrReturnsExistingGuestByEmail("axl@gunsnroses.com");
         booking.setGuest(newGuestByEmailIfNotExists);
         booking.setStay(st);
         booking.setText("Lorem ipsum dolor sit amet, " +
@@ -103,7 +120,6 @@ public class BookingServiceImpl implements BookingService {
         BigDecimal totalPrice = BigDecimal.valueOf(stay * doublePrice);
         double discount = 0.0;
         if (offerByRoomType != null) {
-
             long offerStay = offerByRoomType.getStay();
             if (stay > offerStay) {
                 discount = offerByRoomType.getDiscount();
@@ -111,8 +127,18 @@ public class BookingServiceImpl implements BookingService {
             }
         }
 
+
         newBook.setTotalPrice(totalPrice);
         GuestEntity newGuestByEmailIfNotExists = this.guestService.createNewGuestByEmailIfNotExistsAndReturnsHimOrReturnsExistingGuestByEmail(bookingBindingModel.getEmail());
+        Long id = newGuestByEmailIfNotExists.getId();
+        boolean guestIsVip = this.guestVipService.findIfGuestIsVip(id);
+        if (guestIsVip) {
+            BigDecimal totalPriceForVips = BigDecimal.valueOf(stay * doublePrice - stay * doublePrice * 0.3);
+            if (newBook.getTotalPrice().compareTo(totalPriceForVips) > 0) {
+                newBook.setTotalPrice(totalPriceForVips);
+            }
+
+        }
         newBook.setGuest(newGuestByEmailIfNotExists);
         newBook.setStay(stay);
         newBook.setText(bookingBindingModel.getNotes());
