@@ -27,6 +27,7 @@ public class GuestVipServiceImpl implements GuestVipService {
     public void extractAllVipGuests() {
         List<GuestEntity> allVipGuestsWithBookingsHigherThan3 = this.guestService.findAllVipGuestsWithBookingsHigherThan3();
         for (GuestEntity guestEntity : allVipGuestsWithBookingsHigherThan3) {
+
             Long id = guestEntity.getId();
             Set<BookingEntity> bookings = guestEntity.getBookings();
             int size = bookings.size();
@@ -34,6 +35,7 @@ public class GuestVipServiceImpl implements GuestVipService {
             String email = guestEntity.getEmail();
 
             GuestVipEntity byOriginalId = this.guestVipRepository.findByOriginalId(id);
+
             if (byOriginalId != null) {
                 byOriginalId.setNumberOfBookings(size);
                 this.guestVipRepository.save(byOriginalId);
@@ -42,12 +44,7 @@ public class GuestVipServiceImpl implements GuestVipService {
                 guestVipEntity.setEmail(email).setUsername(username).setOriginalId(id).setNumberOfBookings(size);
                 this.guestVipRepository.save(guestVipEntity);
             }
-
         }
-        System.out.println();
-
-
-
     }
 
     @Override

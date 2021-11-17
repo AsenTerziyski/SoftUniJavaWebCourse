@@ -25,8 +25,10 @@ public class OffersController {
     }
 
     @GetMapping("/add-offer")
-    public String getOfferAddPage() {
-
+    public String getOfferAddPage(Model model) {
+        if (!model.containsAttribute("standardDiscountBiggerThanVip")) {
+            model.addAttribute("standardDiscountBiggerThanVip", false);
+        }
         return "offer-add";
     }
 
@@ -41,6 +43,8 @@ public class OffersController {
                            RedirectAttributes redirectAttributes,
                            Principal principal) {
         System.out.println();
+        double vipDiscount = offerAddBindingModel.getVipDiscount();
+
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
@@ -48,6 +52,13 @@ public class OffersController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.offerAddBindingModel",
                             offerAddBindingModel);
             return "offer-add";
+        }
+
+        if (offerAddBindingModel.getDiscount() >= offerAddBindingModel.getVipDiscount()) {
+            redirectAttributes
+                    .addFlashAttribute("offerAddBindingModel", offerAddBindingModel)
+                    .addFlashAttribute("standardDiscountBiggerThanVip", true);
+            return "redirect:/add-offer";
         }
         this.offersService.addOffer(offerAddBindingModel, principal);
         return "index";
@@ -74,7 +85,7 @@ public class OffersController {
     }
 
 
-//    @PreAuthorize("@offersServiceImpl.isOfferOwner(#principal, #id)")
+    //    @PreAuthorize("@offersServiceImpl.isOfferOwner(#principal, #id)")
     @PostMapping("/offers/remove/{id}")
     public String removeOffer(@PathVariable Long id, Principal principal) {
         System.out.println();

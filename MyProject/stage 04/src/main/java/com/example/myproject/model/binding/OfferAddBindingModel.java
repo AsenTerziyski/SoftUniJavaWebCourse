@@ -13,6 +13,7 @@ public class OfferAddBindingModel {
     private RoomEnum room;
 //    private BigDecimal price;
     private double discount;
+    private double vipDiscount;
     private long stay;
     private String description;
 
@@ -30,16 +31,6 @@ public class OfferAddBindingModel {
         return this;
     }
 
-//    @Positive
-//    @NotNull
-//    public BigDecimal getPrice() {
-//        return price;
-//    }
-//
-//    public OfferAddBindingModel setPrice(BigDecimal price) {
-//        this.price = price;
-//        return this;
-//    }
 
     @Positive
     @NotNull
@@ -50,6 +41,12 @@ public class OfferAddBindingModel {
     public OfferAddBindingModel setDiscount(double discount) {
         this.discount = discount;
         return this;
+    }
+
+    @Positive
+    @NotNull
+    public double getVipDiscount() {
+        return vipDiscount;
     }
 
     @NotNull
@@ -70,6 +67,11 @@ public class OfferAddBindingModel {
 
     public OfferAddBindingModel setStay(long stay) {
         this.stay = stay;
+        return this;
+    }
+
+    public OfferAddBindingModel setVipDiscount(double vipDiscount) {
+        this.vipDiscount = vipDiscount;
         return this;
     }
 }

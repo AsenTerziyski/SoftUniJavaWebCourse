@@ -18,13 +18,16 @@
     </section>
 
 
-    <div th:each="o : ${offers}" th:object="${o}" class="container align-content-center bg-dark p-2 mt-5">
+    <div th:each="o : ${offers}" th:object="${o}" class="container align-content-center bg-dark p-2 mt-3">
         <div class="row align-content-center bg-dark">
             <li class="list-group-item bg-dark text-warning">
 <!--                <div class="card-text bg-dark text-info"><span th:text="|Offer posted by: *{addedBy}|">Posted by</span></div>-->
-                <div class="card-text bg-dark text-info"><span th:text="|Room type: *{room}|">RoomType</span></div>
+                <div class="card-text bg-dark text-info"><span th:text="|OUR OFFER FOR : *{room} IS:|">RoomType</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|If you have a stay more than: *{stay} days,|">Price</span></div>
-                <div class="card-text bg-dark text-info"><span th:text="|you get a discount of *{discount}% from the total sum. |">Discount</span></div>
+                <div class="card-text bg-dark text-info"><span th:text="|you get a discount of *{discount}% from the total sum.|">Discount</span></div>
+                <div class="card-text bg-dark text-info"><span th:text="|If you have more than 3 bookings in our hotel so far,
+                 you become a vip customer and no matter how long you will stay, you will
+                 get a discount of *{vipDiscount}% from the total sum.|">vip Discount</span></div>
                 <div class="card-text bg-dark text-info"><span th:text="|Additionl notes: *{description}|">description</span></div>
             </li>
         </div>

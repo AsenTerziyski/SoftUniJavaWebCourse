@@ -36,7 +36,6 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     @Scheduled(cron = "${schedulers.cronReviews}")
     public void deleteAllReviewsByAnonymous() {
-
         List<ReviewEntity> allByReviewersWithNoName = this.reviewRepository.findAllByReviewerName("");
         for (ReviewEntity reviewEntity : allByReviewersWithNoName) {
             String username = reviewEntity.getGuest().getUsername();
@@ -48,7 +47,6 @@ public class ReviewServiceImpl implements ReviewService {
             this.reviewRepository.deleteById(id);
             LOGGER.info("deleted review by {} with id {}", username, id);
         }
-
     }
 
     @Override

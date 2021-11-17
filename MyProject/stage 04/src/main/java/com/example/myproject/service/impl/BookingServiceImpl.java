@@ -132,13 +132,17 @@ public class BookingServiceImpl implements BookingService {
         GuestEntity newGuestByEmailIfNotExists = this.guestService.createNewGuestByEmailIfNotExistsAndReturnsHimOrReturnsExistingGuestByEmail(bookingBindingModel.getEmail());
         Long id = newGuestByEmailIfNotExists.getId();
         boolean guestIsVip = this.guestVipService.findIfGuestIsVip(id);
-        if (guestIsVip) {
-            BigDecimal totalPriceForVips = BigDecimal.valueOf(stay * doublePrice - stay * doublePrice * 0.3);
-            if (newBook.getTotalPrice().compareTo(totalPriceForVips) > 0) {
-                newBook.setTotalPrice(totalPriceForVips);
+        if (offerByRoomType !=null) {
+            if (guestIsVip) {
+                double vipDiscount = offerByRoomType.getVipDiscount();
+                BigDecimal totalPriceForVips = BigDecimal.valueOf(stay * doublePrice - stay * doublePrice * vipDiscount/100);
+                if (newBook.getTotalPrice().compareTo(totalPriceForVips) > 0) {
+                    newBook.setTotalPrice(totalPriceForVips);
+                }
             }
-
         }
+
+
         newBook.setGuest(newGuestByEmailIfNotExists);
         newBook.setStay(stay);
         newBook.setText(bookingBindingModel.getNotes());

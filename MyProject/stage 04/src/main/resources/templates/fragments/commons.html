@@ -28,8 +28,12 @@
                 </li>
 
                 <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link text-warning" th:href="@{/statistics}">STATISTICS</a>
+                    <a class="nav-link text-warning" th:href="@{/statistics}">Statistics</a>
                 </li>
+
+<!--                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">-->
+<!--                    <a class="nav-link text-warning" th:href="@{/users-browsed}">UsersBrowsed</a>-->
+<!--                </li>-->
 
                 <!--                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">-->
                 <!--                    <a class="nav-link text-warning" th:href="@{/j-reviews}">Reviews in JSON</a>-->

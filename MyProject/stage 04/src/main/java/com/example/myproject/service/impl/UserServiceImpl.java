@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleRepository userRoleRepository;
-    private final AndoriaUserServiceImpl andoriaUserService;
+    private final AndroriaUserServiceImpl andoriaUserService;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, AndoriaUserServiceImpl andoriaUserService) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserRoleRepository userRoleRepository, AndroriaUserServiceImpl andoriaUserService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userRoleRepository = userRoleRepository;
@@ -167,8 +167,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-//    @Override
-//    public void deleteUser(UserEntity userByUsername) {
-//        this.userRepository.delete(userByUsername);
-//    }
+    @Override
+    public List<UserEntity> findAllUsers() {
+        return this.userRepository.findAll();
+    }
+
 }

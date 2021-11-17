@@ -4,6 +4,8 @@ import com.example.myproject.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 
 @Component
 public class InitData implements CommandLineRunner {
@@ -15,8 +17,9 @@ public class InitData implements CommandLineRunner {
     private final ReviewService reviewService;
     private final PictureService pictureService;
     private final GuestVipService guestVipService;
+    private final UserBrowserService userBrowserService;
 
-    public InitData(UserService userService, UserRoleService userRoleService, RoomService roomService, BookingService bookingService, OffersService offersService, ReviewService reviewService, PictureService pictureService, GuestVipService guestVipService) {
+    public InitData(UserService userService, UserRoleService userRoleService, RoomService roomService, BookingService bookingService, OffersService offersService, ReviewService reviewService, PictureService pictureService, GuestVipService guestVipService, UserBrowserService userBrowserService) {
         this.userService = userService;
         this.userRoleService = userRoleService;
         this.roomService = roomService;
@@ -25,6 +28,7 @@ public class InitData implements CommandLineRunner {
         this.reviewService = reviewService;
         this.pictureService = pictureService;
         this.guestVipService = guestVipService;
+        this.userBrowserService = userBrowserService;
     }
 
     @Override
@@ -36,11 +40,8 @@ public class InitData implements CommandLineRunner {
         this.bookingService.initBookings();
         this.reviewService.initReviews();
         this.pictureService.initPictures();
-
-        System.out.println();
-
         this.guestVipService.extractAllVipGuests();
-
-
+        System.out.println();
+        this.userBrowserService.usersWhoBrowsedOn(LocalDate.of(2021,11,17));
     }
 }

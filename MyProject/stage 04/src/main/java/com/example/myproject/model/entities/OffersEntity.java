@@ -11,6 +11,7 @@ public class OffersEntity extends BaseEntity {
     private RoomEnum room;
 //    private BigDecimal price;
     private double discount;
+    private double vipDiscount;
     private String description;
     private UserEntity user;
     private long stay;
@@ -43,6 +44,15 @@ public class OffersEntity extends BaseEntity {
 
     public OffersEntity setDiscount(double discount) {
         this.discount = discount;
+        return this;
+    }
+
+    public double getVipDiscount() {
+        return vipDiscount;
+    }
+
+    public OffersEntity setVipDiscount(double vipDiscount) {
+        this.vipDiscount = vipDiscount;
         return this;
     }
 

@@ -12,6 +12,7 @@ public class OfferSummaryView {
     private String room;
 //    private BigDecimal price;
     private double discount;
+    private double vipDiscount;
     private String description;
     private long stay;
     private String  addedBy;
@@ -61,6 +62,15 @@ public class OfferSummaryView {
 
     public OfferSummaryView setDiscount(double discount) {
         this.discount = discount;
+        return this;
+    }
+
+    public double getVipDiscount() {
+        return vipDiscount;
+    }
+
+    public OfferSummaryView setVipDiscount(double vipDiscount) {
+        this.vipDiscount = vipDiscount;
         return this;
     }
 

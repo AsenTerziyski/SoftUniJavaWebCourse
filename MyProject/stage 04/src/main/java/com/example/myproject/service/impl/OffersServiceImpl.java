@@ -47,6 +47,7 @@ public class OffersServiceImpl implements OffersService {
             UserEntity admin = this.userService.findUserByUsername("admin");
             offerDoubleRoom.setUser(admin);
             offerDoubleRoom.setDiscount(10);
+            offerDoubleRoom.setVipDiscount(15);
 //            offerDoubleRoom.setPrice(price);
             offerDoubleRoom.setDescription("All guests who have more " +
                     "than three bookings become VIP guests and they " +
@@ -88,6 +89,7 @@ public class OffersServiceImpl implements OffersService {
             UserEntity userByUsername = this.userService.findUserByUsername(username);
             byRoom.setUser(userByUsername);
             byRoom.setDiscount(offerAddBindingModel.getDiscount());
+            byRoom.setVipDiscount(offerAddBindingModel.getVipDiscount());
 //            RoomTypeEntity roomTypeEntity = this.roomRepository.findByType(room).orElse(null);
 //            BigDecimal price = roomTypeEntity.getPrice();
 //            byRoom.setPrice(price);

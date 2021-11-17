@@ -70,4 +70,5 @@ cloudinary:
 schedulers:
   cronReviews: "*/50 * * * * *"
   cronReviewsTemp: "30 7 18 9 * *"
+  cronDeleteBrowsingUsers: "30 7 18 9 * *"
   cronAddVipGuest: "*/100 * * * * *"
