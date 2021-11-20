@@ -87,7 +87,6 @@ public class PictureController {
 
         long sizeBytes = picture.getSize();
         double sizeMb = sizeBytes / 1000000;
-
         String sizeMbToString = String.format("%.0f", sizeMb);
 
         if (sizeMb > 5 || contentType == null || !contentType.equalsIgnoreCase("image/jpeg")) {
@@ -97,6 +96,8 @@ public class PictureController {
         this.pictureService.addNewPicture(pictureBindingModel);
         return "redirect:/pictures/all";
     }
+
+
 
     @ExceptionHandler(FileNotSupportedOperation.class)
     public ModelAndView handlePictureFileExceptions(FileNotSupportedOperation e) {
@@ -116,7 +117,7 @@ public class PictureController {
     @Transactional
     @DeleteMapping("/pictures/delete")
     public String delete(@RequestParam("public_id") String public_id, Principal principal) {
-        System.out.println();
+
         if (principal == null) {
             String name = "not registered user";
             throw new UserNotSupportedOperation(name);

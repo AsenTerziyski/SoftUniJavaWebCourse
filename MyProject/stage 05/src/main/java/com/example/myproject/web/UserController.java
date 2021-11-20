@@ -155,7 +155,6 @@ public class UserController {
     @GetMapping("/users-browser")
     private String getUsersWhoBrowsedToday(Model model) {
         LocalDate now = LocalDate.now();
-
         List<UserBrowser> userBrowsers = this.userBrowserService.usersWhoBrowsedOn(now);
         model.addAttribute("usersWhoBrowsedToday", userBrowsers);
         return "user-browser";

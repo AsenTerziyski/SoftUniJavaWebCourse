@@ -60,7 +60,15 @@ public class RoomServiceImpl implements RoomService {
         List<RoomTypeEntity> all = this.roomRepository.findAll();
         List<RoomPricesView> collect = all
                 .stream()
-                .map(roomTypeEntity -> this.modelMapper.map(roomTypeEntity, RoomPricesView.class))
+                .map(roomTypeEntity -> {
+                    RoomPricesView roomPricesView = this.modelMapper.map(roomTypeEntity, RoomPricesView.class);
+                    if (roomTypeEntity.getType().name().equalsIgnoreCase("double_room")) {
+                        roomPricesView.setType("DOUBLE ROOM");
+                    } else {
+                        roomPricesView.setType(roomTypeEntity.getType().name());
+                    }
+                    return roomPricesView;
+                })
                 .collect(Collectors.toList());
         return collect;
     }

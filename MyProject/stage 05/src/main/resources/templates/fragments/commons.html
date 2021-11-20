@@ -32,7 +32,7 @@
                 </li>
 
                 <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">
-                    <a class="nav-link text-warning" th:href="@{/users-browser}">UsersBrowsed</a>
+                    <a class="nav-link text-warning" th:href="@{/users-browser}">Browsing Log</a>
                 </li>
 
                 <!--                <li class="nav-item mr-sm-0" sec:authorize="hasRole('ADMIN')">-->
@@ -89,7 +89,11 @@
                 </li>
 
                 <li class="nav-item mr-sm-0" sec:authorize="isAuthenticated()">
-                    <a class="nav-link text-warning" th:href="@{/pictures/add}">Add photos</a>
+                    <a class="nav-link text-warning" th:href="@{/pictures/add}">Add pictures</a>
+                </li>
+
+                <li class="nav-item mr-sm-0" sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-warning" th:href="@{/pictures/all}">All pictures</a>
                 </li>
 
 

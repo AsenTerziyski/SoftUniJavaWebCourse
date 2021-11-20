@@ -42,8 +42,8 @@ public class OffersController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            Principal principal) {
-        System.out.println();
-        double vipDiscount = offerAddBindingModel.getVipDiscount();
+//        System.out.println();
+//        double vipDiscount = offerAddBindingModel.getVipDiscount();
 
 
         if (bindingResult.hasErrors()) {
@@ -60,6 +60,7 @@ public class OffersController {
                     .addFlashAttribute("standardDiscountBiggerThanVip", true);
             return "redirect:/add-offer";
         }
+
         this.offersService.addOffer(offerAddBindingModel, principal);
         return "index";
     }
@@ -88,7 +89,7 @@ public class OffersController {
     //    @PreAuthorize("@offersServiceImpl.isOfferOwner(#principal, #id)")
     @PostMapping("/offers/remove/{id}")
     public String removeOffer(@PathVariable Long id, Principal principal) {
-        System.out.println();
+
         boolean offerOwnerOrAdmin = this.offersService.isOfferOwner(principal, id);
         if (!offerOwnerOrAdmin) {
             throw new UserNotSupportedOperation(principal.getName());

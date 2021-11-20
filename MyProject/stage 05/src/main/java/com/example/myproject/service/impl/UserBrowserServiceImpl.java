@@ -31,11 +31,11 @@ public class UserBrowserServiceImpl implements UserBrowserService {
         if (byLocalDateAndUsername == null) {
             this.userBrowserRepository.save(userBrowser);
         }
-
     }
 
     @Override
     public List<UserBrowser> usersWhoBrowsedOn(LocalDate date) {
+        System.out.println();
 
         List<UserBrowser> byDate = this.userBrowserRepository.findByLocalDate(date);
 

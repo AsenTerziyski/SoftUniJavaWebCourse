@@ -52,15 +52,15 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void initReviews() {
         if (this.reviewRepository.count() == 0) {
-            String name = "Axileeees Rosales";
+            String name = "Axiles Rosales";
             String email = "axles@gunsNroses.com";
             saveReview(name, email);
 
-            name = "Slahiless Slashess";
+            name = "Slahel Smith";
             email = "slashes@roses.com";
             saveReview(name, email);
 
-            name = "Duffillessss Duffness";
+            name = "Duffles Jones";
             email = "duffesss@guns.com";
             saveReview(name, email);
 

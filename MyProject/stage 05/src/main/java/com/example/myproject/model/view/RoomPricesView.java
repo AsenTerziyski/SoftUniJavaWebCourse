@@ -5,17 +5,17 @@ import com.example.myproject.model.entities.enums.RoomEnum;
 import java.math.BigDecimal;
 
 public class RoomPricesView {
-    private RoomEnum type;
+    private String type;
     private BigDecimal price;
 
     public RoomPricesView() {
     }
 
-    public RoomEnum getType() {
+    public String getType() {
         return type;
     }
 
-    public RoomPricesView setType(RoomEnum type) {
+    public RoomPricesView setType(String type) {
         this.type = type;
         return this;
     }

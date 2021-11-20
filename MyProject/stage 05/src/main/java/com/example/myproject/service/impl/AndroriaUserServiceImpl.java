@@ -2,6 +2,7 @@ package com.example.myproject.service.impl;
 
 import com.example.myproject.model.entities.UserEntity;
 import com.example.myproject.repository.UserRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@ConditionalOnProperty(name = "androria.andrmodifying.enabled", havingValue = "true")
 public class AndroriaUserServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
