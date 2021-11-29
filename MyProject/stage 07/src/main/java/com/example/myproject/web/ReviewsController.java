@@ -40,9 +40,9 @@ public class ReviewsController {
     }
 
     @PostMapping("/reviews/send")
-    public String sendEmail(@Valid ReviewSendBindingModel reviewSendBindingModel,
-                            BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes) {
+    public String sendReview(@Valid ReviewSendBindingModel reviewSendBindingModel,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
@@ -76,7 +76,7 @@ public class ReviewsController {
     }
 
     @ExceptionHandler(UserNotSupportedOperation.class)
-    public ModelAndView handlePictureFileExceptions(UserNotSupportedOperation e) {
+    public ModelAndView handleNotRegisteredUserCantRemoveReview(UserNotSupportedOperation e) {
         ModelAndView modelAndView = new ModelAndView("userNotSupportedOperation");
         modelAndView.addObject("userName", e.getUsername());
         return modelAndView;

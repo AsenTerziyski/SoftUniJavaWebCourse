@@ -1,11 +1,7 @@
 package com.example.myproject.web;
 
-import com.example.myproject.model.binding.UserDeleteBindingModel;
-import com.example.myproject.model.binding.UserRegistrationBindingModel;
 import com.example.myproject.model.entities.UserEntity;
-import com.example.myproject.model.entities.UserRoleEntity;
-import com.example.myproject.model.entities.enums.UserRoleEnum;
-import com.example.myproject.model.service.UserRegistrationServiceModel;
+
 import com.example.myproject.repository.UserRepository;
 import com.example.myproject.service.UserBrowserService;
 import com.example.myproject.service.UserService;
@@ -13,27 +9,21 @@ import com.example.myproject.service.impl.AndroriaUserServiceImpl;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.attribute.UserPrincipal;
-import java.security.Principal;
 import java.util.List;
-import java.util.Set;
+
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -205,6 +195,5 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("user-browser"));
     }
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.myproject.web;
 
 import com.example.myproject.model.binding.PricesEditBindingModel;
+import com.example.myproject.model.entities.enums.RoomEnum;
 import com.example.myproject.model.view.RoomPricesView;
 import com.example.myproject.service.RoomService;
 import com.example.myproject.web.exceptions.UserNotSupportedOperation;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,18 +50,15 @@ public class PricesController {
     public String editPrices(@Valid PricesEditBindingModel pricesEditBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes, Authentication authentication) {
-
         Optional<? extends GrantedAuthority> role_admin = authentication
                 .getAuthorities()
                 .stream()
                 .filter(a -> a.getAuthority().equalsIgnoreCase("role_admin"))
                 .findAny();
-
         if (role_admin.isEmpty()) {
             String name = "not admin user";
             throw new UserNotSupportedOperation(name);
         }
-
         if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute("pricesEditBindingModel", pricesEditBindingModel)
@@ -67,7 +66,6 @@ public class PricesController {
                             pricesEditBindingModel);
             return "prices-edit";
         }
-
         this.roomService.editPrice(pricesEditBindingModel);
         return "priceEditConfirmation";
     }
