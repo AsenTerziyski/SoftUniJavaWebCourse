@@ -56,6 +56,7 @@ class ReviewsControllerTest {
     void testSendReview() throws Exception {
         List<ReviewSummeryView> allReviews = this.reviewService.getAllReviews();
         int beforeTestingPostReview = allReviews.size();
+
         mockMvc
                 .perform(post("/reviews/send")
                         .param("name", "testName")
@@ -66,7 +67,7 @@ class ReviewsControllerTest {
                 .andExpect(status().is3xxRedirection());
         int afterTestingPostReview = this.reviewService.getAllReviews().size();
         assertEquals((beforeTestingPostReview + 1), afterTestingPostReview);
-
+        deleteTestReview();
 
         mockMvc
                 .perform(post("/reviews/send")
@@ -78,6 +79,19 @@ class ReviewsControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
                 .andExpect(view().name("reviews"));
+    }
+
+    private void deleteTestReview() {
+        List<ReviewEntity> reviews = this.reviewRepository.findAllReviews();
+        Long idToDelete = 0L;
+        for (int i = reviews.size()-1; i >=0; i--) {
+            ReviewEntity reviewEntity = reviews.get(i);
+            if (i == reviews.size()-1) {
+                idToDelete = reviewEntity.getId();
+                break;
+            }
+        }
+        this.reviewRepository.deleteById(idToDelete);
     }
 
     @Test
@@ -131,8 +145,6 @@ class ReviewsControllerTest {
         int afterTest = this.reviewRepository.findAllReviews().size();
         Assertions.assertEquals(beforeTest, afterTest);
         this.reviewRepository.deleteById(id);
-
-
 
     }
 

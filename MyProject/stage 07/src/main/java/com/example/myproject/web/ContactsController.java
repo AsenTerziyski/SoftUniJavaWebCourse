@@ -34,21 +34,22 @@ public class ContactsController {
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 
-        boolean hasErrors = bindingResult.hasErrors();
-        System.out.println();
-
-        if (hasErrors) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute("messageSendBindingModel", messageSendBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.messageSendBindingModel", messageSendBindingModel);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.messageSendBindingModel",
+                            messageSendBindingModel);
             return "contacts";
         }
+        sendMessage(messageSendBindingModel);
+        return "index_androria";
+    }
 
+    private void sendMessage(MessageSendBindingModel messageSendBindingModel) {
         String email = messageSendBindingModel.getEmail();
         String text = messageSendBindingModel.getText();
-        boolean guestAdded = this.guestService.receiveEmailAndMessageAndCreatesNewGuestByEmailIfNotExistsOrAddsMessageToExistingGuest(email, text);
-
-        return "index_androria";
+        boolean guestAdded = this.guestService
+                .receiveEmailAndMessageAndCreatesNewGuestByEmailIfNotExistsOrAddsMessageToExistingGuest(email, text);
     }
 
 }

@@ -57,7 +57,6 @@ public class OffersController {
                     .addFlashAttribute("standardDiscountBiggerThanVip", true);
             return "redirect:/add-offer";
         }
-
         this.offersService.addOffer(offerAddBindingModel, principal);
         return "index_androria";
     }
@@ -66,13 +65,11 @@ public class OffersController {
     public String allOffers(Model model) {
         List<OfferSummaryView> allOffers = this.offersService.getAllOffers();
         model.addAttribute("offers", allOffers);
-
         if (allOffers.size() != 0) {
             model.addAttribute("noOffers", false);
         } else {
             model.addAttribute("noOffers", true);
         }
-
         return "offers-all";
     }
 
@@ -88,8 +85,7 @@ public class OffersController {
 
         boolean offerOwnerOrAdmin = this.offersService.isOfferOwner(principal, id);
         if (!offerOwnerOrAdmin) {
-            throw new UserNotSupportedOperation(principal.getName());
-        }
+            throw new UserNotSupportedOperation(principal.getName());}
         this.offersService.removeOffer(id);
         return "redirect:/remove-offer";
     }
@@ -101,6 +97,4 @@ public class OffersController {
         modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
         return modelAndView;
     }
-
-
 }
