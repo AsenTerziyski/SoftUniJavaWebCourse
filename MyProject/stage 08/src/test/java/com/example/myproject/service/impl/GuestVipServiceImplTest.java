@@ -26,7 +26,6 @@ class GuestVipServiceImplTest {
     @BeforeEach
     public void init() {
         testVip = new GuestVipEntity();
-
         testVip.setNumberOfBookings(5)
                 .setBookingsListId("1 2 3 4 5")
                 .setEmail("vip_test@vip.com")
@@ -60,4 +59,5 @@ class GuestVipServiceImplTest {
         boolean guestIsNotVip = serviceToTest.findIfGuestIsVip(100L);
         Assertions.assertFalse(guestIsNotVip);
     }
+
 }

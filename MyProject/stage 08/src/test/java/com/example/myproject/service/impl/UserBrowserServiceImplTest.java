@@ -54,4 +54,12 @@ class UserBrowserServiceImplTest {
         }
     }
 
+    @Test
+    void testScheduledDeleteOfBrowsingUsers() {
+        Mockito.when(this.mockedUserBrowserRepository.count()).thenReturn(2L);
+        initUserBrowserServiceToTest();
+        userBrowserServiceToTest.scheduledDeleteOfBrowsingUsers();
+        Assertions.assertEquals(this.mockedUserBrowserRepository.count()-2, 0);
+    }
+
 }

@@ -65,6 +65,5 @@ class HomeControllerTest {
                 .perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index_androria"));
-
     }
 }

@@ -11,6 +11,7 @@ import com.example.myproject.service.GuestService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -40,12 +41,13 @@ public class GuestServiceImpl implements GuestService {
             messageEntity.setMessageText(text);
             GuestEntity savedNewGuest = this.guestRepository.save(newGuest);
             messageEntity.setGuest(savedNewGuest);
+            messageEntity.setPosted(LocalDate.now());
             this.messageRepository.save(messageEntity);
             return true;
         }
-
         MessageEntity messageEntity = new MessageEntity();
         messageEntity.setMessageText(text);
+        messageEntity.setPosted(LocalDate.now());
         messageEntity.setGuest(guestEntity);
         this.messageRepository.save(messageEntity);
         return false;
@@ -71,7 +73,7 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public boolean checkIfUserIsInAndroriaDBByEmail(String email) {
         GuestEntity guestEntity = this.guestRepository.findByEmail(email).orElse(null);
-        if (guestEntity !=null) {
+        if (guestEntity != null) {
             return true;
         }
         return false;

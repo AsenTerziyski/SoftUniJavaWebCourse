@@ -41,7 +41,6 @@ class UserControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -55,8 +54,6 @@ class UserControllerTest {
 
     private static final String TEST_USER_NAME = "testUser";
     private static final String TEST_USER_FULL_NAME = "Test Test";
-
-
 
     @AfterEach
     void tearDown() {
@@ -151,9 +148,7 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/user/register"));
-
     }
-
 
     @Test
     void testDeleteUser() throws Exception {

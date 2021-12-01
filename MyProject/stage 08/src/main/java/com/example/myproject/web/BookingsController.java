@@ -104,7 +104,7 @@ public class BookingsController {
     }
 
     @ExceptionHandler(UserNotSupportedOperation.class)
-    public ModelAndView handlePictureFileExceptions(UserNotSupportedOperation e) {
+    public ModelAndView handleBookingsExceptions(UserNotSupportedOperation e) {
         ModelAndView modelAndView = new ModelAndView("userNotSupportedOperation");
         modelAndView.addObject("userName", e.getUsername());
         return modelAndView;

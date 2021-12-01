@@ -89,15 +89,9 @@ public class OffersServiceImpl implements OffersService {
             byRoom.setUser(userByUsername);
             byRoom.setDiscount(offerAddBindingModel.getDiscount());
             byRoom.setVipDiscount(offerAddBindingModel.getVipDiscount());
-//            RoomTypeEntity roomTypeEntity = this.roomRepository.findByType(room).orElse(null);
-//            BigDecimal price = roomTypeEntity.getPrice();
-//            byRoom.setPrice(price);
             byRoom.setDescription(offerAddBindingModel.getDescription());
             byRoom.setStay(offerAddBindingModel.getStay());
             this.offersRepository.save(byRoom);
-//            RoomTypeEntity roomBy = this.roomService.findRoomBy(room);
-//            roomBy.setPrice(offerAddBindingModel.getPrice());
-//            this.roomRepository.save(roomBy);
             return true;
         }
 
@@ -114,7 +108,6 @@ public class OffersServiceImpl implements OffersService {
 //            this.roomRepository.save(roomBy);
             return true;
         }
-
         return false;
     }
 

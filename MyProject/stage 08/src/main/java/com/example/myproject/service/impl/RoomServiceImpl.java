@@ -26,7 +26,6 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void initRooms() {
-
         if (this.roomRepository.count() == 0) {
             RoomEnum[] values = RoomEnum.values();
             for (RoomEnum value : values) {
@@ -46,7 +45,6 @@ public class RoomServiceImpl implements RoomService {
                 this.roomRepository.save(roomType);
             }
         }
-
     }
 
     @Override

@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 //@WithMockUser(username = "tuser", roles = {"USER"})
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -78,7 +77,4 @@ class PricesControllerTest {
                 .andExpect(view().name("prices-edit"));
     }
 
-    @Test
-    void handlePictureFileExceptions() {
-    }
 }

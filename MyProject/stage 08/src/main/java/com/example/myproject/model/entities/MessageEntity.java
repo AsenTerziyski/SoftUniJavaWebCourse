@@ -1,12 +1,14 @@
 package com.example.myproject.model.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "messages")
 public class MessageEntity extends BaseEntity {
 
     private String messageText;
+    private LocalDate posted;
     private GuestEntity guest;
 
     public MessageEntity() {
@@ -30,6 +32,15 @@ public class MessageEntity extends BaseEntity {
 
     public MessageEntity setGuest(GuestEntity guest) {
         this.guest = guest;
+        return this;
+    }
+
+    public LocalDate getPosted() {
+        return posted;
+    }
+
+    public MessageEntity setPosted(LocalDate posted) {
+        this.posted = posted;
         return this;
     }
 }

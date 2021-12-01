@@ -23,7 +23,6 @@ class FacilityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private PictureService pictureService;
     @Autowired

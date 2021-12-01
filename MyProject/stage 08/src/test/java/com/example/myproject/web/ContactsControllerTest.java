@@ -1,15 +1,13 @@
 package com.example.myproject.web;
 
+import com.example.myproject.model.entities.*;
+import com.example.myproject.repository.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import com.example.myproject.model.entities.OffersEntity;
-import com.example.myproject.model.entities.RoomTypeEntity;
-import com.example.myproject.model.entities.UserEntity;
+
 import com.example.myproject.model.entities.enums.RoomEnum;
 import com.example.myproject.model.view.OfferSummaryView;
-import com.example.myproject.repository.OffersRepository;
-import com.example.myproject.repository.UserRepository;
 import com.example.myproject.service.OffersService;
 import com.example.myproject.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -21,9 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.example.myproject.model.binding.ReviewSendBindingModel;
-import com.example.myproject.model.entities.ReviewEntity;
 import com.example.myproject.model.view.ReviewSummeryView;
-import com.example.myproject.repository.ReviewRepository;
 import com.example.myproject.service.GuestService;
 import com.example.myproject.service.ReviewService;
 import com.example.myproject.web.exceptions.UserNotSupportedOperation;
@@ -59,6 +55,10 @@ class ContactsControllerTest {
     @Autowired
     private GuestService guestService;
     @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private GuestRepository guestRepository;
+    @Autowired
     private MockMvc mockMvc;
 
     @Test
@@ -69,6 +69,43 @@ class ContactsControllerTest {
     }
 
     @Test
-    void testSendEmail() {
+    void testSendEmail() throws Exception {
+        int messageNumberBefore = this.messageRepository.findAll().size();
+        mockMvc
+                .perform(post("/contacts/send")
+                        .param("email", "test@email.bg")
+                        .param("text", "testMessageTestMessage")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                )
+                .andExpect(status().isOk())
+                .andExpect(view().name("index_androria"));
+
+        int messageNumberAfter = this.messageRepository.findAll().size();
+        Assertions.assertEquals(messageNumberBefore + 1, messageNumberAfter);
+        MessageEntity messageEntity = this.messageRepository.findById((long) messageNumberAfter).orElse(null);
+        if (messageEntity != null) {
+            Long messageId = messageEntity.getId();
+            this.messageRepository.deleteById(messageId);
+        }
+        mockMvc
+                .perform(post("/contacts/send")
+                        .param("email", "test@email.bg")
+                        .param("text", "t")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                )
+                .andExpect(model().hasErrors())
+                .andExpect(view().name("contacts"));
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
+    void getContactFormMessagesPage() throws Exception {
+        mockMvc
+                .perform(get("/messages"))
+                .andExpect(model().attributeExists("allMessages"))
+                .andExpect(status().isOk()).andExpect(view().name("messages"));
+
     }
 }

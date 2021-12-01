@@ -104,8 +104,6 @@ class OffersControllerTest {
         Assertions.assertEquals(description, "TEST STUDIO OFFER-TEST STUDIO OFFER-TEST STUDIO OFFER");
         RoomEnum room = actualStudioOffer.getRoom();
         Assertions.assertEquals(room.name(), "STUDIO");
-        System.out.println();
-
         clearTestOffer(beforeTest);
 
         mockMvc
@@ -146,7 +144,6 @@ class OffersControllerTest {
     }
 
     @Test
-//    @WithMockUser(username = "tuser", roles = {"USER"})
     void testAllOffers() throws Exception {
 
         mockMvc
@@ -220,5 +217,4 @@ class OffersControllerTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is4xxClientError());
     }
-
 }

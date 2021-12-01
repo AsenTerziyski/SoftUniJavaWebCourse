@@ -145,7 +145,6 @@ class ReviewsControllerTest {
         int afterTest = this.reviewRepository.findAllReviews().size();
         Assertions.assertEquals(beforeTest, afterTest);
         this.reviewRepository.deleteById(id);
-
     }
 
 }
