@@ -8,7 +8,7 @@ server:
 #spring:
 #  datasource:
 #    driverClassName: com.mysql.cj.jdbc.Driver
-#    password: M@lmsuite3996
+#    password: 
 #    url: jdbc:mysql://localhost:3306/myProjectDB?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
 #    username: root
 #  jpa:
@@ -34,7 +34,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/androriaDB?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
     username: root
-    password: M@lmsuite3996
+    password: 
   servlet:
     multipart:
       max-file-size: 50MB
