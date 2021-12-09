@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Choose picture</h1>
+<form
+        th:method="post"
+        enctype="multipart/form-data">
+
+    <input type="text" name="title"/><br/>
+    <input type="file" name="picture"/><br/>
+    <input type="submit" value="Submit"/>
+
+</form>
+
+</body>
+</html>
